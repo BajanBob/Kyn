@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KYN Family Pharmacy</title>
+<meta name="description" content="KYN Family Pharmacy: Know Your Numbers. Own Your Health. Send prescriptions by WhatsApp or email, islandwide delivery, the KYN Health Passport and Nurse Doris.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* VOICE: warm, family, trustworthy; clinical clarity, accessible to everyone.
+   IDEA: the Know Your Numbers Health Passport, a booklet stamped with your own readings.
+   PICTURE: an open passport on a dark blue field with a gold sun, pages stamped with BP, glucose, BMI.
+   COLOUR and TYPE: dark blue ground, pharmacy green support, gold accent; Plus Jakarta Sans throughout.
+   LAYOUT: disclaimer bar, sticky header with populated drop-down menus and search, hero, bands to footer. */
+:root{color-scheme:light dark;
+--bg:light-dark(#fbfaf5,#0a1628);--ink:light-dark(#0b1b33,#eef2f8);--mute:light-dark(#4a5a70,#a5b4c8);
+--green:light-dark(#0e7a4a,#13915a);--blue:light-dark(#0b2545,#071a33);--sand:light-dark(#f6edd3,#13233b);
+--card:light-dark(#ffffff,#0f2038);--line:light-dark(#e4dcc2,#243a5a);--gold:#d4a62a;
+--ok:light-dark(#1d7a4e,#5fd39a);--warn:light-dark(#8a5a00,#ffbf5a);--bad:light-dark(#b3261e,#ff8a80);--fs:16px}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{font-size:var(--fs);scroll-padding-top:130px;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:1rem/1.55 "Plus Jakarta Sans",system-ui,sans-serif;overflow-x:clip}
+body.hc{--bg:#000;--ink:#fff;--mute:#e6e6e6;--card:#000;--sand:#111;--line:#fff;--green:#00c46a;--blue:#000;--gold:#ffd400}
+body.hc .hero,body.hc .blueband,body.hc footer{background:#000}
+body.calm *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+body.spaced{letter-spacing:.04em;word-spacing:.12em}body.spaced p,body.spaced li{line-height:1.9}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+a{color:inherit}h1,h2,h3{line-height:1.08;text-wrap:balance;margin:0 0 .4em}
+h1{font-size:clamp(2.1rem,5.4vw,3.3rem);font-weight:800}h2{font-size:clamp(1.75rem,3.6vw,2.5rem);font-weight:800}h3{font-size:1.2rem;font-weight:700}
+p{margin:0 0 1em;max-width:68ch}.wrap{max-width:1240px;margin:0 auto}
+.band{padding:clamp(36px,5vw,72px) max(5vw,16px)}
+.skip{position:absolute;left:-999px;top:0;background:var(--gold);color:#000;padding:10px 14px;z-index:99;font-weight:700}.skip:focus{left:8px}
+.alert{background:#7a1d12;color:#fff;font-size:.875rem;padding:8px max(5vw,16px);display:flex;gap:6px 16px;flex-wrap:wrap;align-items:center;justify-content:center;text-align:center}
+.alert button{font:700 .85rem inherit;background:#fff;color:#7a1d12;border:0;border-radius:999px;padding:6px 12px;min-height:34px;cursor:pointer}
+header{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:8px max(5vw,16px)}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem;text-decoration:none;margin-inline-end:auto}
+.logo small{display:block;font-weight:500;font-size:.75rem;color:var(--mute)}
+.menu{display:flex;gap:2px;list-style:none;margin:0;padding:0}
+.menu>li{position:relative}
+.top{display:flex;align-items:center;gap:4px;padding:10px 11px;min-height:44px;border-radius:10px;border:0;background:none;color:inherit;font:600 .94rem inherit;cursor:pointer;white-space:nowrap}
+.top:hover,.top[aria-expanded=true]{background:var(--sand)}.top svg{transition:transform .2s}.top[aria-expanded=true] svg{transform:rotate(180deg)}
+.dd{position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);width:min(560px,92vw);background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 20px 50px #0003;padding:16px;display:none;z-index:40}
+.menu>li:last-child .dd,.menu>li:nth-last-child(2) .dd{left:auto;right:0;transform:none}
+.dd.open{display:block;animation:pop .18s ease}@keyframes pop{from{opacity:0;translate:0 -6px}}
+.dd .lead{font-size:.85rem;color:var(--mute);margin:0 0 10px;padding:0 8px}
+.dd ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:4px}
+.dd a{display:block;padding:10px;border-radius:12px;text-decoration:none}.dd a:hover,.dd a:focus-visible{background:var(--sand)}
+.dd a b{display:block;font-size:.94rem}.dd a span{display:block;font-size:.8rem;color:var(--mute);line-height:1.35}
+.search{position:relative;width:200px}.search input{min-height:42px;border-radius:999px;padding-inline:14px}
+.sres{position:absolute;top:calc(100% + 6px);right:0;width:min(340px,90vw);background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 20px 50px #0003;list-style:none;margin:0;padding:6px;display:none;z-index:45;max-height:60vh;overflow:auto}
+.sres a{display:block;padding:9px 10px;border-radius:10px;text-decoration:none}.sres a:hover,.sres a:focus{background:var(--sand)}.sres small{display:block;color:var(--mute)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:10px 18px;border-radius:999px;border:0;font:700 .94rem/1.2 inherit;text-decoration:none;cursor:pointer;white-space:nowrap}
+.btn.gold{background:var(--gold);color:#1b1404}.btn.green{background:var(--green);color:#fff}.btn.ghost{background:transparent;color:inherit;border:2px solid currentColor}.btn.sm{min-height:38px;padding:6px 14px;font-size:.85rem}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.ib.burger{display:none}.logo span{white-space:nowrap}.logo small{white-space:nowrap}.fab.hide{opacity:0;pointer-events:none;transform:translateY(20px)}.fab{transition:opacity .2s,transform .2s}
+.hero{background:linear-gradient(150deg,var(--blue) 0%,var(--blue) 45%,var(--green) 130%);color:#fff}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center}
+.motto{display:inline-block;background:#ffffff1c;border:1px solid #ffffff33;padding:6px 14px;border-radius:999px;font-weight:600;font-size:.875rem;margin-bottom:16px}
+.hero p{color:#dbe6f2;font-size:1.06rem}.cta{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 14px}.hero .btn.ghost{color:#fff}
+.fine{font-size:.82rem;color:var(--mute)}.hero .fine,.blueband .fine{color:#c3d2e4}
+.art{position:relative;aspect-ratio:1/0.82;width:100%}.art svg{position:absolute;inset:0;width:100%;height:100%}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
+.step b{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--sand);margin-bottom:10px}
+.price{display:flex;gap:16px;flex-wrap:wrap}.price .card{flex:1 1 200px}.price strong{display:block;font-size:clamp(2.1rem,5vw,2.9rem);font-weight:800;white-space:nowrap}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,3vw,40px);align-items:start}
+.head{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+label{display:block;font-weight:600;font-size:.875rem;margin:12px 0 5px}
+input,select,textarea{width:100%;min-height:46px;font:1rem inherit;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:10px 12px}
+textarea{min-height:84px;resize:vertical}.row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:500;margin:10px 0}.check input{width:22px;min-height:22px;height:22px;flex:none;margin-top:2px;accent-color:var(--green)}
+.sand{background:var(--sand)}.blueband{background:var(--blue);color:#fff}
+.result{margin-top:14px;display:grid;gap:10px}.res{border-radius:14px;padding:12px 14px;border:1.5px solid var(--line);background:var(--bg)}
+.res .tag{font-weight:800}.res.ok .tag{color:var(--ok)}.res.warn .tag{color:var(--warn)}.res.bad .tag{color:var(--bad)}
+.disc{border-inline-start:5px solid var(--gold);background:color-mix(in srgb,var(--gold) 12%,var(--card));padding:14px 16px;border-radius:12px;font-size:.875rem;margin:16px 0}
+.listen{display:none}body.audio .listen{display:inline-flex}
+.chat{display:flex;flex-direction:column;height:min(600px,78vh);background:var(--card);border-radius:20px;overflow:hidden;border:1px solid var(--line)}
+.chat-h{display:flex;gap:12px;align-items:center;padding:12px 16px;background:var(--sand);border-bottom:1px solid var(--line)}
+.chat-h small{display:block;color:var(--mute);font-size:.8rem}.chat-h .sp{margin-inline-start:auto}
+.msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
+.m{max-width:86%;padding:10px 14px;border-radius:16px;white-space:pre-wrap;font-size:.94rem}
+.m.d{background:var(--sand);align-self:flex-start;border-bottom-left-radius:4px}.m.u{background:var(--green);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.m .say{display:none;margin-top:6px;font:600 .78rem inherit;background:none;border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:inherit;cursor:pointer}body.audio .m .say{display:inline-block}
+.typing{display:inline-flex;gap:4px}.typing i{width:7px;height:7px;border-radius:50%;background:var(--mute);animation:bl 1s infinite}.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}@keyframes bl{50%{opacity:.25}}
+.chips{display:flex;gap:8px;flex-wrap:wrap;padding:0 16px 10px}.chips button{font:600 .8rem inherit;padding:8px 12px;min-height:36px;border-radius:999px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.chat form{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
+.ib{width:46px;min-height:46px;flex:none;border-radius:50%;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;display:grid;place-items:center}.ib[aria-pressed=true]{background:var(--gold);color:#000;border-color:var(--gold)}
+.stat{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:end;margin:16px 0}
+.stat b{font-size:clamp(1.5rem,3vw,2rem);font-weight:800;white-space:nowrap;text-align:right}
+.bar{grid-column:1/-1;height:12px;border-radius:99px;background:#ffffff22;overflow:hidden}.bar i{display:block;height:100%;background:var(--gold);border-radius:99px;width:0;transition:width 1.2s ease}
+details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px 18px;margin:10px 0}
+summary{cursor:pointer;font-weight:700;padding:12px 0;min-height:44px}summary small{font-weight:600;color:var(--green);margin-inline-start:8px}
+.filters{display:flex;gap:12px;flex-wrap:wrap;align-items:end;margin:10px 0 6px}.filters>div{flex:1 1 220px;max-width:320px}
+.tipcard{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+footer{background:#061428;color:#cfd9e8;font-size:.875rem}footer a{color:#fff}footer h3{color:#fff}
+.toast{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;padding:12px 18px;border-radius:12px;z-index:70;box-shadow:0 10px 30px #0005;display:none;max-width:90vw;border:2px solid var(--gold)}
+.fab{position:fixed;right:16px;bottom:16px;z-index:35;box-shadow:0 8px 24px #0005}
+.panel{position:fixed;inset:0;z-index:60;display:none;place-items:center;background:#000a;padding:16px}.panel.open{display:grid}
+.sheet{background:var(--card);color:var(--ink);border-radius:22px;width:min(560px,100%);max-height:90vh;overflow:auto;padding:24px;border:1px solid var(--line);position:relative}
+.sheet .x{position:absolute;top:12px;right:12px}
+.tiphead{display:flex;gap:12px;align-items:center;margin-bottom:6px}.badge{display:inline-block;background:var(--gold);color:#1b1404;font-weight:800;font-size:.78rem;padding:4px 10px;border-radius:999px}
+.opt{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.opt b{display:block}.opt span{font-size:.82rem;color:var(--mute)}
+.sw{width:56px;height:32px;flex:none;border-radius:99px;border:0;background:var(--line);position:relative;cursor:pointer}.sw::after{content:"";position:absolute;top:4px;left:4px;width:24px;height:24px;border-radius:50%;background:#fff;transition:left .2s}.sw[aria-pressed=true]{background:var(--green)}.sw[aria-pressed=true]::after{left:28px}
+.seg{display:flex;gap:4px}.seg button{min-width:44px;min-height:40px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);font:700 .9rem inherit;cursor:pointer}.seg button[aria-pressed=true]{background:var(--blue);color:#fff;border-color:var(--blue)}
+.drawer{display:none}.blueband .card .fine{color:var(--mute)}.fig{position:relative;min-height:240px}.fig>svg{position:absolute;inset:0;width:100%;height:100%;color:var(--ink)}.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}.ticks{list-style:none;padding:0;margin:10px 0 0;display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
+.ticks li{padding-inline-start:34px;position:relative}.ticks li::before{content:"";position:absolute;left:0;top:3px;width:22px;height:22px;border-radius:50%;background:var(--green);-webkit-mask:none}
+.ticks li::after{content:"";position:absolute;left:7px;top:8px;width:8px;height:5px;border-left:2.5px solid #fff;border-bottom:2.5px solid #fff;transform:rotate(-45deg)}
+.steps6{list-style:none;counter-reset:s;padding:0;margin:18px 0 0;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.steps6 li{counter-increment:s;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 20px 20px 74px;position:relative}
+.steps6 li::before{content:counter(s);position:absolute;left:20px;top:18px;width:40px;height:40px;border-radius:50%;background:var(--blue);color:var(--gold);font-weight:800;display:grid;place-items:center;font-size:1.1rem}
+.steps6 b{display:block;font-size:1.1rem;margin-bottom:4px}.steps6 span{color:var(--mute)}
+.pp{border:2px solid var(--gold)}.pphead{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-start;margin-bottom:12px}.pphead b{display:block;font-size:1.2rem}.pphead span{color:var(--mute);font-size:.9rem}
+.pptab{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}.pptab th,.pptab td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}.pptab th:first-child,.pptab td:first-child{text-align:left}
+.pptab th{font-size:.82rem;color:var(--mute);font-weight:700}.pptab td small{display:block;font-size:.75rem;font-weight:700}.up{color:var(--bad)}.dn{color:var(--ok)}
+.ppfig{margin:18px 0 0}.ppfig figcaption{font-weight:700;margin-bottom:6px}.ppfig .fig{min-height:220px}
+.ppnote{margin:14px 0 0;background:var(--sand);border-radius:12px;padding:12px 14px;max-width:none}
+.pricebox{display:inline-flex;flex-direction:column;background:#ffffff14;border:2px solid var(--gold);border-radius:20px;padding:18px 26px;margin:6px 0 14px}.pricebox strong{font-size:clamp(2.6rem,6vw,3.6rem);color:var(--gold);line-height:1.1}.pricebox span{color:#dbe6f2}
+.dots{font-size:2.2rem;letter-spacing:.12em;line-height:1.3;margin:4px 0 10px;color:var(--green);word-break:break-word}.brl{border-width:2px;border-color:var(--gold)}.kacts{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.vibar{background:var(--gold);color:#1b1404;display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap;padding:6px max(5vw,16px);font-weight:700}
+.vibar button{font:800 .95rem inherit;min-height:44px;padding:8px 16px;border-radius:999px;border:2px solid #1b1404;cursor:pointer}
+#viBtn{background:#1b1404;color:#ffd75e}#viNo{background:transparent;color:#1b1404}.vibar.gone{display:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.keys{display:none}body.vi .keys{display:block}
+body.vi :focus-visible{outline:5px solid #ffd400;outline-offset:4px}
+body.vi .art,body.vi .fab{display:none}body.vi .hero .wrap,body.vi .two{grid-template-columns:minmax(0,1fr)}
+body.vi #viNo{display:none}body.vi .nav>.search,body.vi .logo small{display:none}@media(max-width:600px){.vibar{flex-wrap:nowrap;padding:6px 10px}.vibar button{font-size:.8rem;padding:6px 12px}.vibar .k{display:none}.chat-h small{display:none}.chat-h .sp{min-height:38px;padding:6px 12px;font-size:.8rem}}@media(max-width:600px){.logo span{white-space:normal;line-height:1.15}body.vi .logo{font-size:.9rem}}body.vi .chips button,body.vi .btn{min-height:54px;font-size:1.05rem}body.vi .m{font-size:1.1rem}
+@media(max-width:1320px){.nav>.search{display:none}}@media(max-width:1460px){.alert .long{display:none}}@media(max-width:1060px){.logo small{display:none}}
+@media(max-width:900px){.hero .wrap,.two{grid-template-columns:minmax(0,1fr)}.menu{display:none}.ib.burger{display:grid}
+ .drawer.open{display:block;max-height:calc(100vh - 140px);overflow:auto;padding:8px max(5vw,16px) 16px;border-top:1px solid var(--line)}
+ .drawer details{margin:6px 0}.drawer a{display:block;padding:10px 0;text-decoration:none}.drawer a span{display:block;font-size:.8rem;color:var(--mute)}.drawer .search{display:block;width:100%;margin:6px 0}}
+@media(max-width:600px){.row,.dd ul{grid-template-columns:minmax(0,1fr)}.nav .callt{display:none}.alert{font-size:.8rem}.alert .long{display:none}.logo{font-size:1.02rem}.logo small{display:none}
+ .fab{padding:10px 14px;min-height:44px;font-size:.85rem;right:12px;bottom:12px}.fab .t{display:none}body{padding-bottom:64px}.sheet{padding:20px 18px}}
+</style>
+</head>
+<body>
+<div class="vibar" id="vibar" role="region" aria-label="Easy view for low vision"><button id="viBtn" aria-pressed="false">Low vision? Tap for Easy view<span class="k"> (or press E)</span></button><button id="viNo">No thanks</button></div>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="sr" id="announce" aria-live="assertive"></div>
+<div class="alert" role="note"><span><b>Medical disclaimer:</b> General health information only, not diagnosis or treatment.<span class="long"> Always follow your doctor or pharmacist.</span></span><span><b>Emergency? Call 511</b> or your local emergency number.</span><button type="button" data-open="a11y" aria-haspopup="dialog">Accessibility &amp; audio</button></div>
+<header>
+ <div class="nav">
+  <a class="logo" href="#top"><svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="#0e7a4a"/><path d="M16 9h8v7h7v8h-7v7h-8v-7H9v-8h7z" fill="#d4a62a"/></svg><span>KYN Family Pharmacy<small>Know Your Numbers. Own Your Health.</small></span></a>
+  <nav aria-label="Main"><ul class="menu" id="menu"></ul></nav>
+  <div class="search" role="search"><input id="sq" type="search" placeholder="Search the site…" aria-label="Search the site" autocomplete="off" aria-controls="sres"><ul class="sres" id="sres"></ul></div>
+  <a class="btn green" href="tel:+12462300322" aria-label="Call 230-0322"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="#d4a62a" d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z"/></svg><span class="callt">230-0322</span></a>
+  <button class="ib burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
+ </div>
+ <div class="drawer" id="drawer"></div>
+</header>
+
+<main id="main">
+<span id="top"></span>
+<section class="band hero" aria-labelledby="h-hero"><div class="wrap">
+  <div>
+    <span class="motto">Our motto: Know Your Numbers. Own Your Health.</span>
+    <h1 id="h-hero">The family pharmacy that puts your health in your hands</h1>
+    <p>We fill your prescriptions, and we help you understand them. With the KYN Health Passport, every visit adds to a clear record of your own numbers, so you and your family can see progress and act early.</p>
+    <div class="cta">
+      <button class="btn gold" id="heroWa">Send prescription on WhatsApp</button>
+      <a class="btn ghost" href="tel:+12462300322">Call 230-0322</a>
+      <button class="btn ghost" data-open="tip">This week's health tip</button>
+    </div>
+    <p class="fine">Islandwide delivery · $15 for KYN Passport holders · $20 for everyone else (BBD)</p>
+  </div>
+  <div class="art" role="img" aria-label="Illustration of an open KYN Health Passport stamped with blood pressure, glucose, BMI and HbA1c readings">
+    <svg viewBox="0 0 520 426" aria-hidden="true">
+      <defs><linearGradient id="sun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe08a"/><stop offset="1" stop-color="#d4a62a"/></linearGradient>
+      <linearGradient id="pg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fffaf1"/><stop offset="1" stop-color="#f0e3cc"/></linearGradient></defs>
+      <circle cx="400" cy="92" r="70" fill="url(#sun)"/><ellipse cx="262" cy="384" rx="210" ry="22" fill="#00000033"/>
+      <g transform="rotate(-6 260 220)">
+        <rect x="58" y="78" width="406" height="290" rx="18" fill="#0b2545"/>
+        <path d="M72 90h184v266H90a18 18 0 0 1-18-18z" fill="url(#pg)"/><path d="M264 90h184v248a18 18 0 0 1-18 18H264z" fill="url(#pg)"/>
+        <rect x="256" y="90" width="8" height="266" fill="#c9b37a"/>
+        <text x="92" y="126" font-family="Plus Jakarta Sans" font-weight="800" font-size="17" fill="#0e7a4a">KYN HEALTH</text>
+        <text x="92" y="146" font-family="Plus Jakarta Sans" font-weight="800" font-size="17" fill="#0e7a4a">PASSPORT</text>
+        <rect x="92" y="164" width="70" height="80" rx="10" fill="#0e7a4a22"/><circle cx="127" cy="192" r="15" fill="#0e7a4a66"/><path d="M102 238c4-20 46-20 50 0z" fill="#0e7a4a66"/>
+        <g fill="#0e7a4a40"><rect x="172" y="170" width="66" height="8" rx="4"/><rect x="172" y="188" width="50" height="8" rx="4"/><rect x="172" y="206" width="60" height="8" rx="4"/></g>
+        <g font-family="Plus Jakarta Sans" fill="#0b1b33"><text x="92" y="276" font-size="12" font-weight="600">Blood pressure</text><text x="92" y="300" font-size="24" font-weight="800">118/76</text>
+        <text x="92" y="328" font-size="12" font-weight="600">Fasting glucose  5.2 mmol/L</text></g>
+        <g transform="rotate(10 350 160)"><circle cx="350" cy="160" r="52" fill="none" stroke="#c4941a" stroke-width="4"/><circle cx="350" cy="160" r="42" fill="none" stroke="#c4941a" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <text x="350" y="154" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="800" font-size="14" fill="#b0830f">BMI 24.1</text><text x="350" y="173" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="700" font-size="10" fill="#b0830f">CHECKED</text></g>
+        <g transform="rotate(-8 380 280)"><rect x="306" y="250" width="134" height="58" rx="10" fill="none" stroke="#0e7a4a" stroke-width="3.5"/>
+        <text x="373" y="276" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="800" font-size="13" fill="#0e7a4a">HbA1c 5.6%</text><text x="373" y="294" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="700" font-size="10" fill="#0e7a4a">ON TRACK</text></g>
+        <path d="M290 330 l12 12 l24 -26" fill="none" stroke="#1d7a4e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+    </svg>
+  </div>
+</div></section>
+
+<section class="band" id="rx" aria-labelledby="h-rx"><div class="wrap">
+  <div class="head"><h2 id="h-rx">Send a prescription in under a minute</h2><button class="btn ghost sm listen" data-read="rx">Listen to this section</button></div>
+  <p>Snap a clear photo of your prescription and send it by WhatsApp or email. A pharmacist checks it, confirms price and availability, and arranges pickup or delivery.</p>
+  <div class="grid" style="margin:22px 0">
+    <div class="card step"><b>1</b><h3>Photograph it</h3><p>Front and back, flat and in good light, with the doctor's signature visible.</p></div>
+    <div class="card step"><b>2</b><h3>Send it</h3><p>WhatsApp 230-0322 or email us. Add your Passport number if you have one.</p></div>
+    <div class="card step"><b>3</b><h3>We confirm</h3><p>A pharmacist calls or messages you to check details, allergies and cost.</p></div>
+    <div class="card step"><b>4</b><h3>Delivered</h3><p>Islandwide to your door. Bring the original prescription where the law requires it.</p></div>
+  </div>
+  <div class="two">
+    <div>
+      <div class="price">
+        <div class="card"><span class="fine">KYN Passport holders</span><strong>$15</strong><p class="fine">BBD per delivery, islandwide</p></div>
+        <div class="card"><span class="fine">All other customers</span><strong>$20</strong><p class="fine">BBD per delivery, islandwide</p></div>
+      </div>
+      <p class="fine" style="margin-top:12px">Outside Barbados? We can still help: message us and a pharmacist will advise on what is possible where you are.</p>
+    </div>
+    <form class="card" id="rxForm" novalidate>
+      <h3>Prepare your message</h3>
+      <div class="row"><div><label for="rxType">Request type</label><select id="rxType"><option>New prescription</option><option>Repeat / refill</option><option>Transfer from another pharmacy</option><option>Question for the pharmacist</option></select></div>
+      <div><label for="rxGet">Pickup or delivery</label><select id="rxGet"><option value="d">Delivery</option><option value="p">Pickup in store</option></select></div></div>
+      <div class="row"><div><label for="rxName">Full name</label><input id="rxName" required autocomplete="name"></div>
+      <div><label for="rxPass">KYN Passport no. (optional)</label><input id="rxPass" placeholder="e.g. KYN-004512"></div></div>
+      <div class="row" id="delivRow"><div><label for="rxParish">Parish</label><select id="rxParish"></select></div>
+      <div><label for="rxAddr">Street address</label><input id="rxAddr" autocomplete="street-address"></div></div>
+      <label for="rxNote">Notes (allergies, best time to call)</label><textarea id="rxNote"></textarea>
+      <p class="fine" id="rxFee" aria-live="polite"></p>
+      <div class="cta" style="margin:10px 0 0"><button class="btn gold" data-via="wa">Open in WhatsApp</button><button class="btn green" data-via="mail">Open in email</button></div>
+      <p class="fine">Attach the photo after WhatsApp or email opens. If nothing opens, message 230-0322 or email <span class="em"></span>.</p>
+    </form>
+  </div>
+</div></section>
+
+<section class="band sand" id="passport" aria-labelledby="h-pp"><div class="wrap two">
+  <div>
+    <div class="head"><h2 id="h-pp">The Know Your Numbers Health Passport</h2><button class="btn ghost sm listen" data-read="passport">Listen</button></div>
+    <p>A personal record of the numbers that predict long-term health, for $94.20 BBD a year. Each time we check you, the reading is stamped into your Passport, so you, your family and your doctor can see trends instead of single moments.</p>
+    <div class="grid">
+      <div class="card"><h3>What we track</h3><p>Blood pressure, blood glucose, HbA1c, cholesterol, BMI, waist size and your medicines list.</p></div>
+      <div class="card"><h3>What you get</h3><p>$15 delivery, refill reminders, a family view for the people you care for, and clear next steps.</p></div>
+    </div>
+    <div class="card brl" style="margin-top:18px">
+      <h3>Braille and large-print Passport</h3>
+      <p class="dots" role="img" aria-label="The words KYN PASSPORT in braille">⠠⠠⠅⠽⠝ ⠠⠠⠏⠁⠎⠎⠏⠕⠗⠞</p>
+      <p>Every Passport comes in standard, large-print and braille editions. Braille cards have a notched corner so you can tell which way up they are, and each new reading is added in braille and large print by our pharmacist. Your readings are also available as plain text for your screen reader or braille display, or read to you by phone.</p>
+      <p class="fine" style="margin:0">Ask for the braille edition in store or call 230-0322.</p>
+    </div>
+    <p class="fine" style="margin-top:14px">Ask for your Passport in store or call 230-0322. Your data belongs to you and is shared only with your consent.</p>
+  </div>
+  <form class="card" id="kyn" aria-describedby="kynDisc">
+    <h3>Check your numbers now</h3>
+    <div class="row"><div><label for="sys">Blood pressure, top number (systolic, mmHg)</label><input id="sys" type="number" inputmode="numeric" placeholder="120"></div>
+    <div><label for="dia">Blood pressure, bottom number (diastolic, mmHg)</label><input id="dia" type="number" inputmode="numeric" placeholder="80"></div></div>
+    <div class="row"><div><label for="glu">Fasting blood sugar (glucose)</label><input id="glu" type="number" step="0.1" inputmode="decimal" placeholder="5.2"></div>
+    <div><label for="gu">Glucose unit</label><select id="gu"><option value="mmol">mmol/L</option><option value="mg">mg/dL</option></select></div></div>
+    <div class="row"><div><label for="wt">Weight (kg or lb, see Units)</label><input id="wt" type="number" step="0.1" inputmode="decimal" placeholder="70"></div>
+    <div><label for="ht">Height (cm or inches, see Units)</label><input id="ht" type="number" step="0.1" inputmode="decimal" placeholder="170"></div></div>
+    <label for="units">Units</label><select id="units"><option value="m">kg and cm</option><option value="i">lb and inches</option></select>
+    <div class="result" id="kynOut"></div>
+    <div class="kacts"><button type="button" class="btn green sm" id="kynSay">Announce my results</button><button type="button" class="btn ghost sm" id="kynCopy">Copy my readings as text</button></div>
+    <p class="disc" id="kynDisc">For adults only. These general ranges are a guide, not a diagnosis. One reading is not enough: bring your Passport to your doctor. If your blood pressure is above 180/120 with chest pain, shortness of breath, weakness or vision changes, call 511 now.</p>
+  </form>
+</div></section>
+
+
+<section class="band" id="pp-why" aria-labelledby="h-ppwhy"><div class="wrap">
+  <div class="head"><h2 id="h-ppwhy">Why you need a KYN Health Passport</h2><button class="btn ghost sm listen" data-read="pp-why">Listen</button></div>
+  <p>Most serious long-term conditions start silently. In Barbados, about 4 in 10 adults have high blood pressure and nearly 1 in 5 has diabetes, and worldwide around 4 in 10 people with these conditions don't know it yet. One reading on one day tells you little. Readings over months show where you are heading, while there is still time to change course.</p>
+  <div class="grid" style="margin-top:18px">
+    <div class="card"><h3>Your numbers in one place</h3><p>Results from us, your doctor and your lab are usually scattered. The Passport keeps them together, in order, in your hands.</p></div>
+    <div class="card"><h3>Spot changes early</h3><p>We compare each reading with your last ones and tell you plainly if something is drifting, so you can act before it becomes a problem.</p></div>
+    <div class="card"><h3>Better doctor visits</h3><p>Bring a clear history instead of trying to remember. Your doctor sees trends at a glance and can make better decisions with you.</p></div>
+    <div class="card"><h3>Safer medicines</h3><p>An up-to-date medicines list helps every pharmacist and doctor avoid duplicates and harmful interactions.</p></div>
+  </div>
+  <h3 style="margin-top:30px">What Passport holders get</h3>
+  <ul class="ticks">
+    <li><b>Regular checks</b> of blood pressure, blood sugar, weight, BMI and waist, stamped into your record</li>
+    <li><b>Lab results recorded</b> for HbA1c and cholesterol when you bring them from your doctor or lab</li>
+    <li><b>A plain-language review</b> of your trends with a pharmacist, and a summary to share with your doctor</li>
+    <li><b>$15 delivery islandwide</b> instead of $20, saving $5 on every delivery</li>
+    <li><b>Refill reminders</b> by WhatsApp or email, so you don't run out</li>
+    <li><b>A family view</b> for the parents, children or partner you help care for</li>
+    <li><b>Your card in standard, large-print or braille</b>, plus a text version for screen readers</li>
+    <li><b>Your data stays yours</b>, shared only with your consent</li>
+  </ul>
+</div></section>
+
+<section class="band sand" id="pp-how" aria-labelledby="h-pphow"><div class="wrap">
+  <div class="head"><h2 id="h-pphow">How it works</h2><button class="btn ghost sm listen" data-read="pp-how">Listen</button></div>
+  <ol class="steps6">
+    <li><b>Join</b><span>In store, by WhatsApp or by calling 230-0322. Members and non-members of KYN Pharmacy are welcome.</span></li>
+    <li><b>Starting check</b><span>We take your blood pressure, blood sugar, weight, height and waist, and note your medicines and any lab results.</span></li>
+    <li><b>Get your Passport</b><span>You receive your card and Passport number in standard, large-print or braille.</span></li>
+    <li><b>Check and stamp</b><span>Each time you visit, we check again and stamp the new reading. We suggest at least every 3 months.</span></li>
+    <li><b>Review your trends</b><span>A pharmacist explains what changed and what to do next, and you can share the summary with your doctor.</span></li>
+    <li><b>Renew yearly</b><span>Your Passport runs for 12 months. Renew to keep your history and benefits going.</span></li>
+  </ol>
+</div></section>
+
+<section class="band" id="pp-sample" aria-labelledby="h-ppsample"><div class="wrap">
+  <div class="head"><h2 id="h-ppsample">A sample Passport record</h2><button class="btn ghost sm listen" data-read="pp-sample">Listen</button></div>
+  <p>Here is how a year of readings looks for a sample Passport holder who started walking daily and cutting back on salt and sugary drinks.</p>
+  <div class="card pp">
+    <div class="pphead"><div><b>KYN Health Passport</b><span>Holder: Sample Holder · Passport no. KYN-000123 · Height 170 cm</span></div><span class="badge">Sample record · not real data</span></div>
+    <div class="scroll"><table class="pptab">
+      <caption class="sr">Sample Passport readings over one year</caption>
+      <thead><tr><th scope="col">Date</th><th scope="col">Blood pressure (mmHg)</th><th scope="col">Fasting sugar (mmol/L)</th><th scope="col">Weight (kg)</th><th scope="col">BMI</th><th scope="col">Waist (cm)</th></tr></thead>
+      <tbody id="ppRows"></tbody></table></div>
+    <figure class="ppfig"><figcaption>Blood pressure over the year (top and bottom numbers)</figcaption><div class="fig" id="ppFig" role="img" aria-label="Line chart: top blood pressure number falls from 148 to 126 and bottom number from 94 to 80 between February and November 2026."><svg id="ppSvg"></svg></div></figure>
+    <p class="ppnote"><b>Pharmacist's note (sample):</b> Blood pressure has moved from the high range into the raised range and sugar is back near normal. Keep up the daily walks. Next check in February. Share this summary with your doctor at your next visit.</p>
+  </div>
+</div></section>
+
+<section class="band blueband" id="pp-price" aria-labelledby="h-ppprice"><div class="wrap two">
+  <div>
+    <h2 id="h-ppprice">Passport price</h2>
+    <p>One simple price for everyone, whether or not you already shop with KYN Pharmacy.</p>
+    <div class="pricebox"><span>KYN Health Passport</span><strong>$94.20</strong><span>BBD per year · members and non-members</span></div>
+    <p class="fine">That works out to about $7.85 a month. Passport holders save $5 on every delivery ($15 instead of $20).</p>
+  </div>
+  <div class="card" style="color:var(--ink)">
+    <h3>Join today</h3>
+    <p>Send us a message and we'll book your starting check and prepare your card.</p>
+    <label for="ppEd">Card edition</label><select id="ppEd"><option>Standard</option><option>Large print</option><option>Braille</option></select>
+    <div class="cta"><button class="btn gold" id="ppJoin">Join on WhatsApp</button><a class="btn green" href="tel:+12462300322">Call 230-0322</a></div>
+    <p class="fine" style="margin:0">Prices in Barbados dollars and subject to change. The Passport records and explains your numbers; it does not replace care from your doctor.</p>
+  </div>
+</div></section>
+
+<section class="band" id="doris" aria-labelledby="h-doris"><div class="wrap two">
+  <div>
+    <h2 id="h-doris">Meet Nurse Doris, your virtual health assistant</h2>
+    <p>Doris answers everyday questions about our services, your KYN Passport, using medicines safely, diet, exercise, sleep and stress, in plain words at any hour. Type, choose a topic, or use the microphone. Turn on read-aloud in the accessibility menu and she will read her answers aloud, or use Easy view and tap Read aloud under any answer.</p>
+    <label for="dTopic">Pick a topic to get started</label>
+    <select id="dTopic"><option value="">Choose a topic…</option></select>
+    <div class="disc"><b>Important:</b> Nurse Doris is an AI virtual assistant, not a registered nurse, pharmacist or doctor. She cannot diagnose, prescribe or change your treatment. Do not share bank or card details. For anything about your own medicines, speak to our pharmacist at 230-0322. In an emergency call 511.</div>
+    <p class="fine">Conversations are not stored by this website.</p>
+  </div>
+  <div class="chat" role="region" aria-label="Chat with Nurse Doris">
+    <div class="chat-h"><svg width="44" height="44" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="22" fill="#0e7a4a"/><circle cx="22" cy="18" r="8" fill="#f6edd3"/><path d="M9 38c3-9 23-9 26 0" fill="#f6edd3"/><rect x="17" y="6" width="10" height="5" rx="2" fill="#fff"/><path d="M21 7h2v3h-2z" fill="#d4a62a"/></svg>
+      <div><b>Nurse Doris</b><small id="dorisMode">Virtual assistant · general information only</small></div>
+      <a class="btn green sm sp" href="#" id="human">Talk to a person</a></div>
+    <div class="msgs" id="msgs" aria-live="polite" aria-relevant="additions"></div>
+    <div class="chips" id="chips"></div>
+    <form id="ask"><input id="q" placeholder="Ask Nurse Doris…" aria-label="Your question for Nurse Doris" autocomplete="off">
+      <button type="button" class="ib" id="mic" aria-label="Speak your question" aria-pressed="false" hidden><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V21h2v-3.1A7 7 0 0 0 19 11z"/></svg></button>
+      <button class="btn gold">Send</button></form>
+  </div>
+</div></section>
+
+<section class="band blueband" id="stats" aria-labelledby="h-stats"><div class="wrap two">
+  <div>
+    <div class="head"><h2 id="h-stats">Why knowing your numbers matters</h2><button class="btn ghost sm listen" data-read="stats" style="color:#fff">Listen</button></div>
+    <p>High blood pressure and diabetes are often silent. Many people feel fine for years while damage builds. A simple check finds them early, when they are easiest to control.</p>
+    <p class="fine">Barbados: Health of the Nation Study, adults 25+, UWI Chronic Disease Research Centre and Ministry of Health (2015). World: WHO Global Hypertension Report (2025); IDF Diabetes Atlas, 11th edition (2025).</p>
+  </div>
+  <div>
+    <h3>Barbados adults</h3>
+    <div class="stat"><span>Living with high blood pressure</span><b>40.6%</b><div class="bar"><i data-w="40.6"></i></div></div>
+    <div class="stat"><span>Living with obesity</span><b>33.8%</b><div class="bar"><i data-w="33.8"></i></div></div>
+    <div class="stat"><span>Living with diabetes</span><b>18.7%</b><div class="bar"><i data-w="18.7"></i></div></div>
+    <h3 style="margin-top:26px">Worldwide</h3>
+    <div class="stat"><span>Adults with hypertension unaware they have it (of 1.4 billion)</span><b>44%</b><div class="bar"><i data-w="44"></i></div></div>
+    <div class="stat"><span>Adults with diabetes undiagnosed (252 of 589 million)</span><b>43%</b><div class="bar"><i data-w="42.8"></i></div></div>
+  </div>
+</div></section>
+
+<section class="band" id="learn" aria-labelledby="h-learn"><div class="wrap">
+  <div class="head"><h2 id="h-learn">Health hub</h2><button class="btn ghost sm listen" data-read="learn">Listen</button></div>
+  <p>Short, practical guides, checked against WHO and national guidance. Filter by topic, then tap a guide to open it.</p>
+  <div class="card tipcard" style="margin:14px 0 8px"><div><span class="badge" id="tipBadge">Tip of the week</span><h3 style="margin:8px 0 4px" id="tipMiniT"></h3><p class="fine" style="margin:0" id="tipMiniC"></p></div><button class="btn gold" data-open="tip">Read this week's tip</button></div>
+  <div class="filters"><div><label for="hubCat">Topic</label><select id="hubCat"></select></div><div><label for="hubQ">Search guides</label><input id="hubQ" type="search" placeholder="e.g. salt, walking, sleep"></div></div>
+  <div class="two" id="hub"></div>
+  <p class="fine" id="hubNone" hidden>No guides match. Try another word, or ask Nurse Doris.</p>
+</div></section>
+
+<section class="band sand" id="alerts" aria-labelledby="h-alerts"><div class="wrap two">
+  <div>
+    <h2 id="h-alerts">Opt in to helpful alerts</h2>
+    <p>Choose what you want to hear about and how. We send only what you pick, and you can stop any time by replying STOP or emailing us.</p>
+    <p class="fine">Alerts are general reminders and news, never medical advice. Standard message rates may apply.</p>
+  </div>
+  <form class="card" id="optin" novalidate>
+    <div class="row"><div><label for="oName">Name</label><input id="oName" required autocomplete="name"></div>
+    <div><label for="oPhone">WhatsApp number (with country code)</label><input id="oPhone" type="tel" placeholder="+1 246 …" autocomplete="tel"></div></div>
+    <div class="row"><div><label for="oMail">Email</label><input id="oMail" type="email" autocomplete="email"></div>
+    <div><label for="oFreq">How often</label><select id="oFreq"><option>Only when needed (refills)</option><option>Weekly health tip</option><option>Monthly news</option></select></div></div>
+    <fieldset style="border:0;padding:0;margin:8px 0"><legend style="font-weight:600;font-size:.875rem">I'd like</legend>
+      <label class="check"><input type="checkbox" value="Refill reminders" checked> Refill reminders</label>
+      <label class="check"><input type="checkbox" value="Weekly health tip"> Weekly health tip (diet, exercise, sleep)</label>
+      <label class="check"><input type="checkbox" value="Passport check days"> Passport check days</label>
+      <label class="check"><input type="checkbox" value="Offers and news"> Offers and pharmacy news</label>
+    </fieldset>
+    <label class="check"><input type="checkbox" id="consent"> I agree to receive these messages and understand I can opt out at any time.</label>
+    <div class="cta" style="margin:10px 0 0"><button class="btn gold" data-via="wa">Opt in by WhatsApp</button><button class="btn green" data-via="mail">Opt in by email</button></div>
+  </form>
+</div></section>
+</main>
+
+<footer class="band"><div class="wrap">
+  <div class="grid">
+    <div><h3>KYN Family Pharmacy</h3><p>Know Your Numbers. Own Your Health.</p><p>Phone and WhatsApp: <a href="tel:+12462300322">230-0322</a> (+1 246 230 0322)<br>Email: <span class="em"></span><br>Web: www.kynpharmacy.com</p></div>
+    <div><h3>Quick links</h3><p id="flinks"></p><p><a href="#" data-open="tip">This week's health tip</a> · <a href="#" data-open="a11y">Accessibility &amp; audio</a></p></div>
+    <div><h3>Disclaimer</h3><p>Content on this website, including Nurse Doris and the weekly tips, is general information and not a substitute for professional medical advice, diagnosis or treatment. Never ignore or delay professional advice because of something you read here. Prescription medicines are dispensed only against a valid prescription and after review by a registered pharmacist.</p></div>
+  </div>
+  <p class="fine" style="color:#93a6c0">www.kynpharmacy.com · © <span id="yr"></span> KYN Family Pharmacy. Statistics: UWI CDRC Health of the Nation Study; WHO; International Diabetes Federation. Accessibility: built toward WCAG 2.2 AA; tell us if anything is hard to use.</p>
+</div></footer>
+
+<button class="btn gold fab" id="fab" aria-label="Ask Nurse Doris"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="#1b1404" d="M4 3h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H9l-5 4v-4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/></svg><span class="t">Ask </span>Nurse Doris</button>
+
+<div class="panel" id="tip" role="dialog" aria-modal="true" aria-labelledby="tipT"><div class="sheet">
+  <button class="ib x" data-close aria-label="Close tip"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
+  <div class="tiphead"><span class="badge" id="tipWeek"></span><span class="fine" id="tipCat"></span></div>
+  <h2 id="tipT" style="font-size:1.7rem"></h2>
+  <p id="tipB"></p>
+  <div class="disc" id="tipDo"></div>
+  <p class="fine">General wellness information. If you have a health condition, are pregnant, or take regular medicines, check with your doctor or pharmacist before changing diet or exercise.</p>
+  <div class="cta" style="margin:14px 0 0"><button class="btn ghost sm" id="tipPrev">Previous</button><button class="btn ghost sm" id="tipNext">Next tip</button><button class="btn green sm listen" id="tipSay">Read aloud</button><button class="btn gold sm" id="tipShare">Share on WhatsApp</button></div>
+</div></div>
+
+<div class="panel" id="a11y" role="dialog" aria-modal="true" aria-labelledby="a11yT"><div class="sheet">
+  <button class="ib x" data-close aria-label="Close accessibility settings"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
+  <h2 id="a11yT" style="font-size:1.6rem">Accessibility &amp; audio</h2>
+  <p class="fine">Audio is off unless you turn it on. Everything spoken is also shown as text, and nothing on this site relies on sound alone.</p>
+  <div class="opt"><div><b>Easy view (low vision)</b><span>One switch: large text, high contrast, simple layout, Listen buttons and keyboard shortcuts. Press E anywhere. Nothing plays until you choose.</span></div><button class="sw" id="optVi" aria-pressed="false" aria-label="Easy view"></button></div>
+  <div class="opt"><div><b>Read aloud</b><span>Adds Listen buttons, reads Nurse Doris's replies and the weekly tip aloud.</span></div><button class="sw" id="optAudio" aria-pressed="false" aria-label="Read aloud"></button></div>
+  <div class="opt"><div><b>Speaking speed</b><span>Slower can be easier to follow.</span></div><div class="seg" id="optRate"><button data-v="0.8" aria-pressed="false">Slow</button><button data-v="1" aria-pressed="true">Normal</button><button data-v="1.2" aria-pressed="false">Fast</button></div></div>
+  <div class="opt"><div><b>Text size</b><span>Makes all text larger.</span></div><div class="seg" id="optSize"><button data-v="16" aria-pressed="true">A</button><button data-v="18.5" aria-pressed="false" style="font-size:1.05rem">A</button><button data-v="21" aria-pressed="false" style="font-size:1.2rem">A</button></div></div>
+  <div class="opt"><div><b>High contrast</b><span>White text on black with bright highlights.</span></div><button class="sw" id="optHc" aria-pressed="false" aria-label="High contrast"></button></div>
+  <div class="opt"><div><b>Easy-read spacing</b><span>More space between letters, words and lines.</span></div><button class="sw" id="optSp" aria-pressed="false" aria-label="Easy-read spacing"></button></div>
+  <div class="opt"><div><b>Stop animations</b><span>Turns off movement and pop-in effects.</span></div><button class="sw" id="optCalm" aria-pressed="false" aria-label="Stop animations"></button></div>
+  <div class="opt"><div><b>Weekly tip pop-up</b><span>Show the new tip once each week.</span></div><button class="sw" id="optTip" aria-pressed="true" aria-label="Weekly tip pop-up"></button></div>
+  <p class="fine" style="margin-top:14px"><b>Braille users:</b> this site is built for screen readers, so your braille display shows every heading, link, button and form label automatically. No separate version is needed.<br><b>Keyboard shortcuts in Easy view:</b> 1 Prescriptions, 2 KYN Passport, 3 Nurse Doris, 4 Health hub, 5 Alerts, 6 Call us, 0 list these shortcuts, E turn Easy view off.<br><b>Deaf or hard of hearing?</b> All help is available in writing: chat with Nurse Doris, WhatsApp 230-0322, or email <span class="em"></span>. Tell us if you'd like us to text instead of call.<br><b>Blind or low vision?</b> The site works with screen readers (VoiceOver, TalkBack, NVDA), can be used with a keyboard alone, and Nurse Doris accepts spoken questions.</p>
+</div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+{
+const PHONE='12462300322', EMAIL='rx@kynpharmacy.com';
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const S={get(k){try{return JSON.parse(localStorage.getItem('kyn_'+k))}catch(e){return null}},set(k,v){try{localStorage.setItem('kyn_'+k,JSON.stringify(v))}catch(e){}}};
+const toast=t=>{const el=$('#toast');el.textContent=t;el.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(()=>el.style.display='none',4500)};
+const go=(via,subject,body)=>{const url=via==='wa'?`https://wa.me/${PHONE}?text=${encodeURIComponent(body)}`:`mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();a.remove();
+  toast(via==='wa'?'Opening WhatsApp… if it does not open, message 230-0322.':'Opening your email app… if it does not open, email '+EMAIL)};
+$$('.em').forEach(e=>e.innerHTML=`<a href="mailto:${EMAIL}">${EMAIL}</a>`);
+$('#yr').textContent=new Date().getFullYear();
+
+/* ---------- Content data ---------- */
+const MENU=[
+ {id:'m-rx',label:'Prescriptions',lead:'Send, refill or transfer a prescription. Delivery islandwide: $15 Passport holders, $20 others.',items:[
+  ['Send a new prescription','Photo by WhatsApp or email','#rx'],['Repeat and refills','Reorder in a few taps','#rx'],['Transfer to KYN','Move your medicines to us','#rx'],
+  ['Delivery and fees','$15 Passport · $20 others (BBD)','#rx'],['Ask a pharmacist','Call or WhatsApp 230-0322','tel:+12462300322'],['Refill reminders','Never run out','#alerts']]},
+ {id:'m-pp',label:'KYN Passport',lead:'The Know Your Numbers Health Passport: track, understand and own your numbers. $94.20 BBD a year.',items:[
+  ['What is the Passport?','Your personal health record','#passport'],['Check your numbers','BP, glucose and BMI ranges','#kyn'],['Why you need it','Benefits and how it helps','#pp-why'],
+  ['Join today','WhatsApp, call or visit','#pp-price'],['How it works','Six simple steps','#pp-how'],['See a sample and price','$94.20 BBD a year','#pp-sample']]},
+ {id:'m-doris',label:'Nurse Doris',lead:'Our AI virtual assistant for general questions, day or night. Not a substitute for a clinician.',items:[
+  ['Chat with Doris','Type or speak your question','#doris'],['Prescriptions help','How sending and delivery work','#doris'],['Diet and exercise','Everyday healthy habits','#doris'],
+  ['Medicine safety','Storage, lists and disposal','#doris'],['Talk to a person','WhatsApp our team','#human'],['Voice and audio','Turn on read-aloud','#a11y']]},
+ {id:'m-hub',label:'Health hub',lead:'Plain-language guides on heart health, diabetes, diet, exercise, medicines and family care.',items:[
+  ['Heart and blood pressure','Get a true reading','#learn:Heart'],['Diabetes','Daily habits that help','#learn:Diabetes'],['Diet and nutrition','Salt, sugar and portions','#learn:Diet'],
+  ['Exercise and movement','How much is enough','#learn:Exercise'],['Medicines','Safety at home','#learn:Medicines'],['Tip of the week','New every Monday','#tip']]},
+ {id:'m-help',label:'Help',lead:'Contact us, sign up for alerts and set up the site the way that works for you.',items:[
+  ['Call 230-0322','Tap to call','tel:+12462300322'],['WhatsApp us','Message the pharmacy','#human'],['Email us',EMAIL,'mailto:'+EMAIL],
+  ['Opt in to alerts','WhatsApp or email','#alerts'],['Accessibility and audio','Text size, contrast, read aloud','#a11y'],['Emergency','Call 511 now','tel:511']]}];
+
+const HUB=[
+ ['Heart','Blood pressure: getting a true reading','Sit quietly for 5 minutes, feet flat, back supported, arm at heart level. No coffee, smoking or exercise for 30 minutes before. Take two readings a minute apart and record both in your Passport.'],
+ ['Heart','Cutting salt without losing flavour','WHO advises adults to eat less than 5 g of salt a day, about one teaspoon. Most comes from processed food, so check labels, rinse canned foods, and season with herbs, lime, garlic, onion and pepper.'],
+ ['Heart','Cholesterol: what the numbers mean','Total cholesterol, LDL ("bad"), HDL ("good") and triglycerides each tell part of the story. Your doctor reads them together with your blood pressure, sugar and smoking to judge your heart risk.'],
+ ['Diabetes','Diabetes: everyday habits that help','Take medicines at the same times daily, check feet every day for cuts or sores, keep a fast-acting sugar with you if you use insulin or sulfonylureas, and walk after meals where you can. Ask about an HbA1c check every 3 to 6 months.'],
+ ['Diabetes','Spotting a low sugar (hypo)','Shaking, sweating, hunger, confusion or a fast heartbeat can mean low blood sugar in people on some diabetes medicines. Take a fast-acting sugar, recheck in 15 minutes, and get help if you do not improve.'],
+ ['Diet','Building a balanced plate','Fill half your plate with vegetables and fruit, a quarter with whole grains or ground provisions, and a quarter with fish, peas, beans, chicken or eggs. WHO suggests at least 400 g of fruit and vegetables a day.'],
+ ['Diet','Sugary drinks: the hidden load','A single can of soft drink can hold around 8 to 10 teaspoons of sugar. WHO recommends keeping free sugars under 10% of daily energy. Swap to water, unsweetened drinks, or water with lime and mint.'],
+ ['Diet','Reading a food label','Check the serving size first, then salt (sodium), sugar and saturated fat. Compare similar products per 100 g and pick the lower one.'],
+ ['Exercise','How much activity is enough?','WHO recommends adults get 150 to 300 minutes of moderate activity a week, such as brisk walking, plus muscle-strengthening on 2 or more days. Any amount is better than none: start with 10 minutes.'],
+ ['Exercise','Move more when you sit a lot','Stand up and move for a few minutes every 30 to 60 minutes. Take calls standing, use stairs, and walk after meals to help blood sugar.'],
+ ['Medicines','Medicine safety at home','Keep one up-to-date medicines list, including herbal and bush teas. Store medicines out of children\'s reach and away from heat and humidity. Never share prescription medicines. Bring old or expired medicines to us for safe disposal.'],
+ ['Medicines','Missed a dose?','What to do depends on the medicine. Do not double up unless your prescriber or pharmacist says so. Check the leaflet or call us at 230-0322.'],
+ ['Medicines','Heat, hydration and medicines','Some blood pressure and water tablets increase the risk of dehydration in hot weather. Drink regularly, watch for dizziness, and ask us whether your medicines need extra care in the heat.'],
+ ['Family','Caring for children and older relatives','Children\'s doses depend on weight: always use the measuring device in the pack and the label\'s chart, or ask a pharmacist. For older relatives, a weekly pill organiser and a medicines review can prevent mix-ups and falls.'],
+ ['Wellbeing','Sleep that restores','Most adults need 7 to 9 hours. Keep regular times, dim screens an hour before bed, and limit caffeine after midday. Loud snoring with daytime sleepiness is worth discussing with a doctor.'],
+ ['Wellbeing','Managing everyday stress','Try slow breathing: in for 4, hold for 4, out for 6, for two minutes. Regular activity, sleep and talking to someone you trust all help. If low mood lasts more than two weeks, speak to a doctor.'],
+ ['Emergency','When to get help straight away','Call 511 for chest pain, sudden weakness or numbness, face drooping, slurred speech, severe shortness of breath, or a very high or very low sugar reading with confusion.']];
+
+const TIPS=[
+ ['Diet','Make half your plate vegetables','Vegetables fill you up with fibre, vitamins and few calories. Aim for at least 400 g of fruit and vegetables a day.','This week: add one extra portion of vegetables to lunch or dinner every day.'],
+ ['Exercise','Ten minutes counts','You don\'t need a gym. Brisk walking for 10 minutes, three times a day, adds up to 150 minutes a week.','This week: take a 10-minute walk after your biggest meal each day.'],
+ ['Diet','Rethink your drink','Soft drinks, juices and sweetened teas carry hidden sugar. Water is the best everyday drink.','This week: swap one sugary drink a day for water with lime, mint or cucumber.'],
+ ['Heart','Shake the salt habit','Most adults eat far more salt than the recommended less than 5 g a day.','This week: taste before you salt, and try herbs, garlic and pepper sauce instead.'],
+ ['Sleep','Protect your sleep window','Adults generally need 7 to 9 hours. Regular times train your body clock.','This week: go to bed and get up at the same time every day, weekends included.'],
+ ['Exercise','Build strength twice a week','Strong muscles support blood sugar control, balance and joints.','This week: do sit-to-stands from a chair, wall push-ups and step-ups, 2 sessions.'],
+ ['Medicines','Know your medicines','A current list helps every doctor and pharmacist keep you safe.','This week: write down every medicine, vitamin and herbal remedy you take, and bring it to us.'],
+ ['Numbers','Check your blood pressure','High blood pressure usually has no symptoms. Knowing your number is the only way to know.','This week: get your blood pressure checked and stamp the reading in your KYN Passport.'],
+ ['Diet','Choose whole grains','Brown rice, oats, whole-wheat bread and ground provisions release energy slowly and keep you full.','This week: switch one white starch a day to a whole-grain or high-fibre choice.'],
+ ['Wellbeing','Two minutes of calm','Slow breathing can ease stress in the moment.','This week: breathe in for 4, hold for 4, out for 6, twice a day for two minutes.'],
+ ['Diet','Watch the portion','Large portions are easy to overeat. A smaller plate can help.','This week: serve meals on a smaller plate and wait 10 minutes before seconds.'],
+ ['Exercise','Break up sitting','Long stretches of sitting affect blood sugar and back health.','This week: stand and move for 3 minutes every hour you\'re sitting.'],
+ ['Numbers','Know your sugar','Many people with diabetes do not know they have it. A simple test finds it early.','This week: ask us about a glucose or HbA1c check if you\'re over 35 or have a family history.'],
+ ['Diet','Plan the week\'s meals','Planning cuts last-minute fast food and saves money.','This week: plan 3 home-cooked dinners and shop with a list.'],
+ ['Hydration','Stay ahead of the heat','Thirst is a late signal. Older adults and people on water tablets dehydrate faster.','This week: carry a refillable bottle and sip through the day.'],
+ ['Family','Eat together','Family meals help children build healthy habits for life.','This week: share at least three meals at the table without screens.'],
+ ['Exercise','Make movement social','A walking partner makes it easier to keep going.','This week: invite a friend or family member for two evening walks.'],
+ ['Diet','Snack smarter','Fruit, unsalted nuts and yogurt beat chips and sweets.','This week: prepare cut fruit or a small handful of nuts for your snack times.'],
+ ['Wellbeing','Cut back on alcohol','Less alcohol is better for blood pressure, sleep and weight.','This week: choose at least three alcohol-free days.'],
+ ['Wellbeing','Thinking of quitting smoking?','Stopping smoking is the single best thing a smoker can do for their heart.','This week: talk to our pharmacist about quit-smoking support options.'],
+ ['Medicines','Clear out the cabinet','Old or expired medicines can be unsafe or confusing.','This week: check expiry dates and bring unwanted medicines to us for safe disposal.'],
+ ['Diabetes','Look after your feet','People with diabetes can miss small cuts that become serious.','This week: check your feet daily with a mirror and moisturise, but not between toes.'],
+ ['Sleep','Screens off earlier','Light from phones can delay sleep.','This week: put screens away 60 minutes before bed and try reading or prayer instead.'],
+ ['Numbers','Measure your waist','Waist size is a simple sign of risk for heart disease and diabetes.','This week: measure at the level of your belly button and record it in your Passport.'],
+ ['Diet','Cook with less oil','Baking, grilling, steaming and stewing cut fat without losing flavour.','This week: try one fried favourite baked or grilled instead.'],
+ ['Wellbeing','Stay connected','Good relationships support mental and physical health.','This week: call or visit someone you haven\'t spoken to in a while.']];
+
+/* ---------- Menus that populate ---------- */
+const chev='<svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"/></svg>';
+const link=(t,d,h)=>`<a href="${esc(h)}" data-go="${esc(h)}"><b>${esc(t)}</b><span>${esc(d)}</span></a>`;
+$('#menu').innerHTML=MENU.map(m=>`<li><button class="top" aria-expanded="false" aria-controls="${m.id}" title="${esc(m.lead)}">${m.label} ${chev}</button>
+ <div class="dd" id="${m.id}" role="region" aria-label="${m.label}"><p class="lead">${esc(m.lead)}</p><ul>${m.items.map(i=>`<li>${link(...i)}</li>`).join('')}</ul></div></li>`).join('');
+$('#drawer').innerHTML=`<div class="search" role="search"><input id="sq2" type="search" placeholder="Search the site…" aria-label="Search the site"><ul class="sres" id="sres2"></ul></div>`+
+ MENU.map(m=>`<details><summary>${m.label}</summary><p class="fine" style="margin:0">${esc(m.lead)}</p>${m.items.map(i=>link(...i)).join('')}</details>`).join('');
+$('#flinks').innerHTML=MENU.map(m=>`<a href="${m.items[0][2]}" data-go="${m.items[0][2]}">${m.label}</a>`).join(' · ');
+const closeAll=except=>$$('.top').forEach(b=>{if(b!==except){b.setAttribute('aria-expanded','false');$('#'+b.getAttribute('aria-controls')).classList.remove('open')}});
+let hoverT;
+$$('.menu>li').forEach(li=>{const b=li.querySelector('.top'),dd=li.querySelector('.dd');
+  const open=()=>{closeAll(b);b.setAttribute('aria-expanded','true');dd.classList.add('open')};
+  b.addEventListener('click',()=>b.getAttribute('aria-expanded')==='true'?closeAll():open());
+  li.addEventListener('mouseenter',()=>{if(matchMedia('(hover:hover)').matches){clearTimeout(hoverT);open()}});
+  li.addEventListener('mouseleave',()=>{if(matchMedia('(hover:hover)').matches)hoverT=setTimeout(()=>closeAll(),220)})});
+document.addEventListener('click',e=>{if(!e.target.closest('.menu'))closeAll();if(!e.target.closest('.search'))$$('.sres').forEach(s=>s.style.display='none')});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeAll();$$('.panel.open').forEach(p=>closePanel(p));$$('.sres').forEach(s=>s.style.display='none')}});
+$('#burger').addEventListener('click',()=>{const o=$('#drawer').classList.toggle('open');$('#burger').setAttribute('aria-expanded',o)});
+
+$$('main h2').forEach(h=>h.setAttribute('tabindex','-1'));
+/* Router for menu targets */
+const route=h=>{closeAll();$('#drawer').classList.remove('open');$('#burger').setAttribute('aria-expanded','false');
+  if(h==='#tip')return openTip();if(h==='#a11y')return openPanel('a11y');if(h==='#human')return go('wa','',"Hello KYN Family Pharmacy, I'd like to speak with a team member.");
+  if(h.startsWith('#learn:')){$('#hubCat').value=h.split(':')[1];renderHub();h='#learn'}
+  const t=$(h);if(t){t.scrollIntoView();const f=t.querySelector('input,select,h2');if(f)f.focus({preventScroll:true})}};
+document.addEventListener('click',e=>{const a=e.target.closest('[data-go]');if(!a)return;const h=a.dataset.go;if(h.startsWith('#')){e.preventDefault();route(h)}});
+$('#human').addEventListener('click',e=>{e.preventDefault();route('#human')});
+
+/* Site search with populating suggestions */
+const IDX=[...MENU.flatMap(m=>m.items.map(i=>({t:i[0],d:m.label+' · '+i[1],h:i[2]}))),...HUB.map(h=>({t:h[1],d:'Health hub · '+h[0],h:'#learn:'+h[0],q:h[1]})),
+ ...TIPS.map(t=>({t:t[1],d:'Health tip · '+t[0],h:'#tip'}))];
+const wireSearch=(inp,list)=>{inp.addEventListener('input',()=>{const q=inp.value.trim().toLowerCase();if(q.length<2){list.style.display='none';return}
+  const r=IDX.filter(x=>(x.t+' '+x.d).toLowerCase().includes(q)).slice(0,8);
+  list.innerHTML=r.length?r.map(x=>`<li><a href="${esc(x.h)}" data-go="${esc(x.h)}" data-q="${esc(x.q||'')}">${esc(x.t)}<small>${esc(x.d)}</small></a></li>`).join(''):'<li class="fine" style="padding:10px">No results. Try Nurse Doris.</li>';
+  list.style.display='block'});
+  list.addEventListener('click',e=>{const a=e.target.closest('a');if(a&&a.dataset.q){setTimeout(()=>{$('#hubQ').value=a.dataset.q;renderHub()},0)}list.style.display='none';inp.value=''})};
+wireSearch($('#sq'),$('#sres'));wireSearch($('#sq2'),$('#sres2'));
+
+/* ---------- Audio (optional) ---------- */
+const P=Object.assign({vi:false,audio:false,rate:1,size:16,hc:false,sp:false,calm:false,tip:true},S.get('prefs')||{});
+let tts=null;
+const webSpeak=t=>{try{if(!('speechSynthesis' in window))return false;speechSynthesis.cancel();const parts=t.match(/[^.!?]+[.!?]*/g)||[t];
+  parts.forEach(p=>{const u=new SpeechSynthesisUtterance(p.trim());u.rate=P.rate;u.lang='en';speechSynthesis.speak(u)});return true}catch(e){return false}};
+const stopSpeak=()=>{try{tts&&tts.stop()}catch(e){}try{speechSynthesis.cancel()}catch(e){}};
+const speak=t=>{if(!P.audio)return;t=t.replace(/\s+/g,' ').trim();if(!t)return;
+  if(tts){tts.speak(t.slice(0,1990),{rate:P.rate}).catch(err=>{if(!err||err.code!=='viewer_stopped')webSpeak(t)})}else if(!webSpeak(t))toast('Read-aloud is not supported in this browser. Your screen reader will still work.')};
+const autoSpeak=t=>{if(P.audio&&!P.vi)speak(t)};
+const sectionText=id=>[...$('#'+id).querySelectorAll('h2,h3,p,summary,.stat span,.stat b,.price strong')].filter(e=>!e.closest('form')&&e.offsetParent!==null).map(e=>e.innerText).join('. ');
+$$('[data-read]').forEach(b=>b.addEventListener('click',()=>speak(sectionText(b.dataset.read))));
+
+/* Accessibility panel */
+const applyPrefs=()=>{document.body.classList.toggle('audio',P.audio);document.body.classList.toggle('hc',P.hc);document.body.classList.toggle('spaced',P.sp);document.body.classList.toggle('calm',P.calm);
+  document.documentElement.style.setProperty('--fs',P.size+'px');
+  [['#optAudio','audio'],['#optHc','hc'],['#optSp','sp'],['#optCalm','calm'],['#optTip','tip']].forEach(([s,k])=>$(s).setAttribute('aria-pressed',P[k]));
+  $$('#optRate button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.v===P.rate));$$('#optSize button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.v===P.size));S.set('prefs',P)};
+[['#optAudio','audio'],['#optHc','hc'],['#optSp','sp'],['#optCalm','calm'],['#optTip','tip']].forEach(([s,k])=>$(s).addEventListener('click',()=>{P[k]=!P[k];if(k==='audio'){if(P.audio){applyPrefs();speak('Read aloud is on. Use the Listen buttons, and Nurse Doris will read her answers.')}else stopSpeak()}applyPrefs()}));
+$('#optRate').addEventListener('click',e=>{const b=e.target.closest('button');if(b){P.rate=+b.dataset.v;applyPrefs()}});
+$('#optSize').addEventListener('click',e=>{const b=e.target.closest('button');if(b){P.size=+b.dataset.v;applyPrefs()}});
+applyPrefs();
+
+/* Dialogs */
+let lastFocus=null;
+const openPanel=id=>{lastFocus=document.activeElement;const p=$('#'+id);p.classList.add('open');p.querySelector('[data-close]').focus()};
+const closePanel=p=>{p.classList.remove('open');stopSpeak();if(lastFocus)lastFocus.focus()};
+$$('.panel').forEach(p=>{p.addEventListener('click',e=>{if(e.target===p||e.target.closest('[data-close]'))closePanel(p)});
+  p.addEventListener('keydown',e=>{if(e.key!=='Tab')return;const f=[...p.querySelectorAll('button,a,input,select')].filter(x=>x.offsetParent!==null);if(!f.length)return;
+   if(e.shiftKey&&document.activeElement===f[0]){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&document.activeElement===f[f.length-1]){e.preventDefault();f[0].focus()}})});
+document.addEventListener('click',e=>{const o=e.target.closest('[data-open]');if(!o)return;e.preventDefault();o.dataset.open==='tip'?openTip():openPanel(o.dataset.open)});
+
+
+/* ---------- Easy view (low vision) ---------- */
+const announce=t=>{const a=$('#announce');a.textContent='';setTimeout(()=>a.textContent=t,60)};
+const KEYS='Shortcuts: press 1 for prescriptions, 2 for the KYN Passport, 3 for Nurse Doris, 4 for the health hub, 5 for alerts, 6 to call us, 0 to list these shortcuts again, and E to turn Easy view off.';
+const JUMP={'1':'#rx','2':'#passport','3':'#doris','4':'#learn','5':'#alerts'};
+const viUI=()=>{const b=$('#viBtn');b.setAttribute('aria-pressed',!!P.vi);b.innerHTML=P.vi?'Easy view is on. Tap to turn off<span class="k"> (or press E)</span>':'Low vision? Tap for Easy view<span class="k"> (or press E)</span>';
+  $('#optVi').setAttribute('aria-pressed',!!P.vi);document.body.classList.toggle('vi',!!P.vi);$('#vibar').classList.toggle('gone',!P.vi&&S.get('viNo')===true)};
+const setVI=on=>{if(on){S.set('preVi',{audio:P.audio,size:P.size,hc:P.hc,calm:P.calm,tip:P.tip});Object.assign(P,{vi:true,audio:true,size:21,hc:true,calm:true,tip:false})}
+  else{Object.assign(P,S.get('preVi')||{audio:false,size:16,hc:false,calm:false,tip:true},{vi:false});stopSpeak()}
+  applyPrefs();viUI();S.set('viAsked',true);
+  const msg=on?'Easy view is on: large text, high contrast and Listen buttons. '+KEYS:'Easy view is off.';announce(msg)};
+$('#viBtn').addEventListener('click',()=>setVI(!P.vi));
+$('#optVi').addEventListener('click',()=>setVI(!P.vi));
+$('#viNo').addEventListener('click',()=>{S.set('viNo',true);S.set('viAsked',true);$('#vibar').classList.add('gone');announce('OK. You can turn on Easy view any time by pressing E, or from Accessibility and audio.');$('.alert button').focus()});
+document.addEventListener('keydown',e=>{
+  const t=e.target;if(e.ctrlKey||e.metaKey||e.altKey||(t&&t.matches&&t.matches('input,textarea,select,[contenteditable]')))return;
+  const k=e.key.toLowerCase();
+  if(k==='e'){e.preventDefault();setVI(!P.vi);return}
+  if(!P.vi)return;
+  if(JUMP[k]){e.preventDefault();route(JUMP[k]);const h=$(JUMP[k]).querySelector('h2');const msg=(h?h.textContent:'')+'.';announce(msg)}
+  else if(k==='6'){e.preventDefault();announce('Calling 230-0322');location.href='tel:+12462300322'}
+  else if(k==='0'){e.preventDefault();announce(KEYS)}});
+viUI();
+/* ---------- Weekly rotating tip ---------- */
+const isoWeek=d=>{d=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));const n=d.getUTCDay()||7;d.setUTCDate(d.getUTCDate()+4-n);const y=new Date(Date.UTC(d.getUTCFullYear(),0,1));return [d.getUTCFullYear(),Math.ceil(((d-y)/864e5+1)/7)]};
+const [yr,wk]=isoWeek(new Date());const thisIdx=(yr*53+wk)%TIPS.length;let tipIdx=thisIdx;
+const showTip=i=>{tipIdx=(i+TIPS.length)%TIPS.length;const [c,t,b,d]=TIPS[tipIdx];
+  $('#tipWeek').textContent=tipIdx===thisIdx?'Tip of the week '+wk:'More tips';$('#tipCat').textContent=c;$('#tipT').textContent=t;$('#tipB').textContent=b;$('#tipDo').innerHTML='<b>Try it:</b> '+esc(d)};
+const openTip=()=>{showTip(thisIdx);openPanel('tip');autoSpeak($('#tipT').textContent+'. '+$('#tipB').textContent+' '+$('#tipDo').textContent)};
+$('#tipPrev').addEventListener('click',()=>{showTip(tipIdx-1);autoSpeak($('#tipT').textContent+'. '+$('#tipB').textContent)});
+$('#tipNext').addEventListener('click',()=>{showTip(tipIdx+1);autoSpeak($('#tipT').textContent+'. '+$('#tipB').textContent)});
+$('#tipSay').addEventListener('click',()=>speak($('#tipT').textContent+'. '+$('#tipB').textContent+' '+$('#tipDo').textContent));
+$('#tipShare').addEventListener('click',()=>{const [c,t,b,d]=TIPS[tipIdx];go('wa','',`KYN Family Pharmacy health tip: ${t}. ${b} ${d} www.kynpharmacy.com`)});
+$('#tipMiniT').textContent=TIPS[thisIdx][1];$('#tipMiniC').textContent=TIPS[thisIdx][0]+' · week '+wk+' · a new tip every Monday';
+if(P.tip&&S.get('tipSeen')!==yr+'-'+wk)setTimeout(()=>{if(!$('.panel.open')){openTip();S.set('tipSeen',yr+'-'+wk)}},4000);
+
+/* ---------- Health hub ---------- */
+const cats=['All topics',...new Set(HUB.map(h=>h[0]))];$('#hubCat').innerHTML=cats.map(c=>`<option>${c}</option>`).join('');
+const renderHub=()=>{const c=$('#hubCat').value,q=$('#hubQ').value.trim().toLowerCase();
+  const r=HUB.filter(h=>(c==='All topics'||h[0]===c)&&(!q||(h[1]+' '+h[2]).toLowerCase().includes(q)));
+  const half=Math.ceil(r.length/2),col=a=>`<div>${a.map(h=>`<details${r.length<=2?' open':''}><summary>${esc(h[1])}<small>${h[0]}</small></summary><p>${esc(h[2])}</p></details>`).join('')}</div>`;
+  $('#hub').innerHTML=col(r.slice(0,half))+col(r.slice(half));$('#hubNone').hidden=r.length>0};
+$('#hubCat').addEventListener('change',renderHub);$('#hubQ').addEventListener('input',renderHub);renderHub();
+
+
+/* ---------- Sample Passport ---------- */
+const PPD=[['Feb 2026',148,94,6.4,92.0,104],['May 2026',138,88,6.1,89.5,101],['Aug 2026',132,84,5.9,87.0,99],['Nov 2026',126,80,5.7,85.5,97]];
+const bmi=w=>(w/(1.7**2)).toFixed(1);
+const arrow=(a,b)=>a==null?'':(b<a?'<small class="dn">▼ down</small>':b>a?'<small class="up">▲ up</small>':'<small>no change</small>');
+$('#ppRows').innerHTML=PPD.map((r,i)=>{const p=PPD[i-1]||[];return `<tr><td>${r[0]}</td><td>${r[1]}/${r[2]}${arrow(p[1],r[1])}</td><td>${r[3].toFixed(1)}${arrow(p[3],r[3])}</td><td>${r[4].toFixed(1)}${arrow(p[4],r[4])}</td><td>${bmi(r[4])}</td><td>${r[5]}${arrow(p[5],r[5])}</td></tr>`}).join('');
+const ppSvg=$('#ppSvg');
+const ppDraw=()=>{const W=ppSvg.clientWidth,H=ppSvg.clientHeight;if(!W)return;const L=44,Rr=W<520?40:70,T=16,B=30,lo=70,hi=160;
+  const x=i=>L+i*(W-L-Rr)/(PPD.length-1),y=v=>T+(hi-v)*(H-T-B)/(hi-lo);
+  const grid=[80,120,140].map(v=>`<line x1="${L}" x2="${W-Rr}" y1="${y(v)}" y2="${y(v)}" stroke="currentColor" opacity=".15"/><text x="${L-8}" y="${y(v)+4}" text-anchor="end" font-size="12" fill="currentColor" opacity=".7">${v}</text>`).join('');
+  const line=(k,c)=>`<polyline fill="none" stroke="${c}" stroke-width="3" points="${PPD.map((r,i)=>x(i)+','+y(r[k])).join(' ')}"/>`+PPD.map((r,i)=>`<circle cx="${x(i)}" cy="${y(r[k])}" r="4.5" fill="${c}"/>`).join('');
+  const lab=PPD.map((r,i)=>`<text x="${x(i)}" y="${H-8}" text-anchor="middle" font-size="12" fill="currentColor" opacity=".75">${W<520?r[0].slice(0,3):r[0]}</text>`).join('');
+  const end=(k,c,t)=>`<text x="${x(PPD.length-1)+8}" y="${y(PPD[PPD.length-1][k])+4}" font-size="12" font-weight="700" fill="${c}">${W<520?PPD[PPD.length-1][k]:t+' '+PPD[PPD.length-1][k]}</text>`;
+  ppSvg.innerHTML=grid+line(1,'var(--green)')+line(2,'var(--gold)')+lab+end(1,'var(--green)','Top')+end(2,'#b0830f','Bottom')};
+const ppRO=new ResizeObserver(ppDraw);ppRO.observe(ppSvg);
+$('#ppJoin').addEventListener('click',()=>go('wa','',`Hello KYN Family Pharmacy, I'd like to join the KYN Health Passport ($94.20 BBD per year). Card edition: ${$('#ppEd').value}. Please book my starting check.`));
+/* ---------- Prescription form ---------- */
+const PAR=['Christ Church','St Andrew','St George','St James','St John','St Joseph','St Lucy','St Michael','St Peter','St Philip','St Thomas','Outside Barbados (we will advise)'];
+$('#rxParish').innerHTML='<option value="">Choose…</option>'+PAR.map(p=>`<option>${p}</option>`).join('');
+const fee=()=>{const pick=$('#rxGet').value==='p';$('#delivRow').hidden=pick;const out=$('#rxParish').value.startsWith('Outside');
+  $('#rxFee').textContent=pick?'Pickup in store: no delivery fee.':out?'Outside Barbados: a pharmacist will advise on options and cost.':'Delivery fee: '+($('#rxPass').value.trim()?'$15 BBD (KYN Passport holder)':'$20 BBD')};
+['#rxPass','#rxGet','#rxParish'].forEach(s=>$(s).addEventListener('input',fee));
+const sv=S.get('rx');if(sv){['rxName','rxPass','rxAddr','rxParish'].forEach(k=>{if(sv[k])$('#'+k).value=sv[k]})}fee();
+$('#rxForm').addEventListener('click',e=>{const b=e.target.closest('button[data-via]');if(!b)return;e.preventDefault();
+  const v=k=>$('#'+k).value.trim();const pick=$('#rxGet').value==='p';
+  if(!v('rxName')){toast('Please add your name.');$('#rxName').focus();return}
+  if(!pick&&(!v('rxParish')||!v('rxAddr'))){toast('Please add your parish and street address, or choose pickup.');$(v('rxParish')?'#rxAddr':'#rxParish').focus();return}
+  S.set('rx',{rxName:v('rxName'),rxPass:v('rxPass'),rxAddr:v('rxAddr'),rxParish:v('rxParish')});
+  go(b.dataset.via,v('rxType')+' for '+v('rxName'),`Hello KYN Family Pharmacy,\nRequest: ${v('rxType')}\nName: ${v('rxName')}\nKYN Passport: ${v('rxPass')||'none'}\n${pick?'Pickup in store':'Delivery to: '+v('rxAddr')+', '+v('rxParish')}\n${v('rxNote')?'Notes: '+v('rxNote')+'\n':''}(Photo attached)`)});
+$('#heroWa').addEventListener('click',()=>go('wa','',"Hello KYN Family Pharmacy, I'd like to send a prescription."));
+
+/* ---------- Know your numbers ---------- */
+const ids=['sys','dia','glu','gu','wt','ht','units'];const kv=S.get('nums')||{};ids.forEach(i=>{if(kv[i]!=null)$('#'+i).value=kv[i]});
+const res=(cls,tag,txt)=>`<div class="res ${cls}"><span class="tag">${tag}.</span> ${txt}</div>`;
+const calc=()=>{const v=Object.fromEntries(ids.map(i=>[i,$('#'+i).value]));S.set('nums',v);const out=[];const s=+v.sys,d=+v.dia;
+  if(s&&d){if(s>180||d>120)out.push(res('bad',`Blood pressure ${s}/${d} mmHg: very high`,'Recheck in 5 minutes. If still this high, or you have symptoms, call 511 or see a doctor today.'));
+    else if(s>=140||d>=90)out.push(res('bad',`Blood pressure ${s}/${d} mmHg: high range`,'Talk to your doctor soon and record readings in your Passport.'));
+    else if(s>=130||d>=80)out.push(res('warn',`Blood pressure ${s}/${d} mmHg: raised`,'Lifestyle steps help. Ask us for a Passport check.'));
+    else if(s>=120)out.push(res('warn',`Blood pressure ${s}/${d} mmHg: elevated`,'Keep an eye on it and recheck in a few months.'));
+    else if(s<90||d<60)out.push(res('warn',`Blood pressure ${s}/${d} mmHg: on the low side`,'Usually fine if you feel well. Tell a doctor if you feel faint or dizzy.'));
+    else out.push(res('ok',`Blood pressure ${s}/${d} mmHg: in the healthy range`,'Great. Keep checking at least once a year.'))}
+  const g=+v.glu;if(g){const mm=v.gu==='mg'?g/18:g,shown=g+(v.gu==='mg'?' mg/dL':' mmol/L');
+    if(mm<3.9)out.push(res('bad',`Blood sugar ${shown}: low`,'If you feel shaky or confused, take a fast-acting sugar and get help.'));
+    else if(mm>=7)out.push(res('bad',`Blood sugar ${shown}: in the diabetes range`,'A doctor needs to confirm with repeat tests. Please book a visit.'));
+    else if(mm>=5.6)out.push(res('warn',`Blood sugar ${shown}: in the prediabetes range`,'Ask about an HbA1c test. Early action can prevent diabetes.'));
+    else out.push(res('ok',`Blood sugar ${shown}: in the healthy fasting range`,'Keep it up.'))}
+  let w=+v.wt,h=+v.ht;if(w&&h){if(v.units==='i'){w*=0.4536;h*=2.54}const b=w/((h/100)**2),bs=b.toFixed(1);
+    if(b<18.5)out.push(res('warn',`BMI ${bs}: below the healthy range`,'Worth discussing with your doctor.'));
+    else if(b<25)out.push(res('ok',`BMI ${bs}: in the healthy range`,'BMI is a rough guide; waist size matters too.'));
+    else if(b<30)out.push(res('warn',`BMI ${bs}: overweight range`,'Small, steady changes add up. Ask us about support.'));
+    else out.push(res('bad',`BMI ${bs}: obesity range`,'This raises risk for blood pressure and diabetes. A doctor can help you plan.'))}
+  $('#kynOut').innerHTML=out.join('')||'<p class="fine" style="margin:0">Enter any reading to see where it sits. Your entries stay on this device.</p>'};
+ids.forEach(i=>$('#'+i).addEventListener('input',calc));calc();
+const kynText=()=>{const r=[...$('#kynOut').querySelectorAll('.res')].map(x=>x.innerText.replace(/\s+/g,' ').trim());
+  return r.length?'KYN Health Passport readings, '+new Date().toLocaleDateString()+'. '+r.join(' ')+' General ranges for adults, not a diagnosis. Call 230-0322 with questions.':''};
+$('#kynSay').addEventListener('click',()=>{const t=kynText()||'No readings entered yet. Enter your blood pressure, blood sugar, or weight and height first.';announce(t);speak(t)});
+$('#kynCopy').addEventListener('click',async()=>{const t=kynText();if(!t){toast('Enter a reading first.');return}
+  try{await navigator.clipboard.writeText(t);toast('Copied. Paste it into a note, email or WhatsApp.')}catch(e){toast('Copy is blocked here. Use Announce my results instead.')}});
+
+/* ---------- Nurse Doris ---------- */
+const msgs=$('#msgs');const hist=[];
+const add=(who,t)=>{const d=document.createElement('div');d.className='m '+who;const s=document.createElement('span');s.textContent=t;d.appendChild(s);
+  if(who==='d'){const b=document.createElement('button');b.className='say';b.type='button';b.textContent='Read aloud';b.addEventListener('click',()=>speak(s.textContent));d.appendChild(b)}
+  msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;return s};
+const KB=[
+ {k:/emergenc|chest pain|stroke|can'?t breathe|cannot breathe|unconscious|overdose|seizure|bleeding heavily|poison/i,a:'This sounds urgent. Please call 511 (Barbados ambulance) or your local emergency number right now, or go to the nearest emergency department. Don\'t wait for an online answer.',f:[]},
+ {k:/suicid|kill myself|self.?harm|end my life|hurt myself/i,a:'I\'m really sorry you\'re feeling this way. You deserve support right now. Please call 511 or your local emergency number, or reach out to someone you trust and let them know how you feel. You can also call us at 230-0322 and we\'ll help you find support.',f:[]},
+ {k:/^(hi|hello|hey|good (morning|afternoon|evening|day))\b/i,a:'Hello! I\'m Nurse Doris. I can help with prescriptions and delivery, the KYN Passport, and everyday health like diet, exercise, sleep and medicine safety. What would you like to know?',f:['How do I send a prescription?','What is the KYN Passport?','Give me a healthy eating tip']},
+ {k:/thank/i,a:'You\'re very welcome. Take care of yourself, and remember: Know Your Numbers, Own Your Health.',f:['This week\'s health tip']},
+ {k:/transfer/i,a:'To move your prescriptions to KYN, send us your name, the medicines and your current pharmacy by WhatsApp (230-0322) or email. Our pharmacist will arrange the transfer and confirm with you.',f:['What does delivery cost?']},
+ {k:/refill|repeat|run(ning)? out/i,a:'For a repeat, WhatsApp 230-0322 or email us with your name and the medicine. If your prescription has repeats left, we\'ll prepare it. Opt in to refill reminders so you never run out.',f:['Sign me up for reminders','What does delivery cost?']},
+ {k:/deliver|fee|shipping/i,a:'We deliver islandwide in Barbados: $15 BBD for KYN Passport holders and $20 BBD for everyone else. Pickup in store is free. Outside Barbados? Message us and a pharmacist will advise.',f:['How do I send a prescription?','How do I get a Passport?']},
+ {k:/prescri|whatsapp|send|photo/i,a:'Take a clear photo of the whole prescription, including the doctor\'s signature, and WhatsApp it to 230-0322 or email '+EMAIL+'. A pharmacist will confirm price, availability and pickup or delivery. The form in the Prescriptions section writes the message for you.',f:['What does delivery cost?','Can I transfer a prescription?']},
+ {k:/get (a|my)? ?passport|sign up for (the )?passport|join|(cost|price|fee|how much).*passport|passport.*(cost|price|fee|how much)/i,a:'The KYN Health Passport costs $94.20 BBD a year, the same for KYN Pharmacy members and non-members. To join, WhatsApp or call 230-0322, or visit us. We take your first readings, give you your card (standard, large-print or braille) and stamp them in. You can also tap Join on WhatsApp in the Passport section.',f:['What are the Passport benefits?','How does the Passport work?']},
+ {k:/benefit|why (do i|should i)|worth it/i,a:'Passport holders get: a record of their numbers over time, early warning when something drifts, a clear summary to bring to the doctor, an up-to-date medicines list, $15 delivery instead of $20, refill reminders, a family view, and braille or large-print cards. It costs $94.20 BBD a year.',f:['How does the Passport work?','How do I get a Passport?']},
+ {k:/how does (the )?passport work|how it works/i,a:'1. Join in store, by WhatsApp or by phone. 2. We take your starting numbers. 3. You get your card and Passport number. 4. Each visit we check and stamp new readings. 5. We review trends with you and you share them with your doctor. 6. Renew each year for $94.20 BBD.',f:['What are the Passport benefits?']},
+ {k:/passport|kyn|know your numbers|track/i,a:'The KYN Health Passport ($94.20 BBD a year) is your record of key numbers: blood pressure, glucose, HbA1c, cholesterol, BMI and waist, plus your medicines list. Holders get $15 delivery and refill reminders, and can keep a family view.',f:['How do I get a Passport?','What is a healthy blood pressure?']},
+ {k:/blood pressure|\bbp\b|hypertension|pressure/i,a:'For most adults, a reading under 120/80 is ideal. Readings of 130/80 or more on several occasions should be discussed with your doctor. Sit quietly 5 minutes, feet flat, arm supported, before checking. Only a doctor can diagnose high blood pressure.',f:['How can I cut down on salt?','Check my numbers']},
+ {k:/salt|sodium/i,a:'WHO advises less than 5 g of salt a day, about one teaspoon. Most hidden salt is in processed and fast food. Taste before you salt, rinse canned foods, and season with herbs, garlic, lime and pepper.',f:['Give me a healthy eating tip']},
+ {k:/sugar|glucose|diabet|a1c|hba1c/i,a:'A fasting glucose under 5.6 mmol/L (100 mg/dL) is generally in the healthy range; 7.0 mmol/L (126 mg/dL) or more needs a doctor to check. An HbA1c test shows your average over about 3 months. Ask us about testing.',f:['Diabetes foot care','Check my numbers']},
+ {k:/foot|feet/i,a:'With diabetes, check your feet every day for cuts, blisters or colour changes, wash and dry well (especially between toes), moisturise but not between toes, and never walk barefoot. Report any sore that isn\'t healing.',f:[]},
+ {k:/cholesterol|lipid/i,a:'Cholesterol has parts: LDL ("bad"), HDL ("good") and triglycerides. More fibre, less fried and fatty meat, regular activity and not smoking all help. Your doctor will interpret your results with your other risks.',f:['Give me a healthy eating tip']},
+ {k:/weight|bmi|lose|obes|diet|eat|food|nutrition|meal|plate/i,a:'Try the balanced plate: half vegetables and fruit, a quarter whole grains or ground provisions, a quarter fish, peas, beans, chicken or eggs. Drink water instead of sugary drinks, and watch portion sizes. Slow, steady changes last.',f:['How much exercise do I need?','Sugary drinks']},
+ {k:/drink|soda|juice|soft drink/i,a:'One can of soft drink can hold about 8 to 10 teaspoons of sugar. Water is the best everyday drink. Try water with lime, mint or cucumber, and keep juice to a small glass.',f:[]},
+ {k:/exercis|walk|activity|fitness|gym|move/i,a:'WHO recommends 150 to 300 minutes a week of moderate activity, like brisk walking, plus muscle-strengthening on 2 or more days. Start with 10 minutes and build up. If you have a heart condition or are new to exercise, check with your doctor first.',f:['Strength exercises at home','Give me a healthy eating tip']},
+ {k:/strength|muscle/i,a:'Simple home strength moves: sit-to-stands from a chair, wall push-ups, step-ups on a low step, and carrying shopping bags. Aim for 2 sessions a week, 8 to 12 repetitions each, stopping if anything hurts.',f:[]},
+ {k:/sleep|insomnia|tired/i,a:'Most adults need 7 to 9 hours. Keep regular bed and wake times, dim screens an hour before bed, and limit caffeine after midday. Ongoing tiredness or loud snoring is worth discussing with a doctor.',f:['Managing stress']},
+ {k:/stress|anxi|worr|calm|mood|depress/i,a:'Slow breathing can help in the moment: in for 4, hold for 4, out for 6, for two minutes. Activity, sleep and talking to someone you trust help too. If low mood or worry lasts more than two weeks, please speak to a doctor.',f:[]},
+ {k:/smok|cigar|vape|quit/i,a:'Stopping smoking is one of the best things you can do for your heart and lungs, and support makes it more likely to work. Speak to our pharmacist at 230-0322 about quit-smoking options.',f:[]},
+ {k:/alcohol|rum|beer|wine/i,a:'Less alcohol is better for blood pressure, sleep and weight. Have alcohol-free days each week, and never mix alcohol with medicines without checking with a pharmacist.',f:[]},
+ {k:/dose|how much|how many|mg\b|take with|interact|mix|side effect|missed|pregnan|breastfeed|child|baby|kid/i,a:'That depends on the exact medicine and on you, so I can\'t answer it safely here. Please call our pharmacist at 230-0322 or WhatsApp us: they can see your full medicine list. Always follow the label and your prescriber.',f:['Talk to a person']},
+ {k:/store|storage|expire|dispos|cabinet/i,a:'Store medicines in a cool, dry place out of children\'s reach, not in the bathroom or a hot car. Check expiry dates, and bring old or unwanted medicines to us for safe disposal instead of throwing them in the bin.',f:[]},
+ {k:/hour|open|close|location|where|address|direction/i,a:'Please call 230-0322 for today\'s opening hours and directions. Our team will be glad to help.',f:[]},
+ {k:/pay|insur|price|cost|cheap|card/i,a:'For medicine prices, insurance and payment options, please call 230-0322 or WhatsApp us. Never share card or bank details in this chat.',f:[]},
+ {k:/alert|remind|opt|subscribe|sign me up/i,a:'You can opt in to refill reminders, a weekly health tip, Passport check days and news, by WhatsApp or email, in the Alerts section. Reply STOP any time to opt out.',f:[]},
+ {k:/tip/i,a:'tip',f:[]},
+ {k:/check my numbers/i,a:'Use the "Check your numbers" tool in the KYN Passport section. Enter your blood pressure, fasting glucose, or weight and height to see the general range.',f:[]},
+ {k:/person|human|staff|pharmacist|someone/i,a:'Of course. Tap "Talk to a person" above to WhatsApp our team, or call 230-0322.',f:[]},
+ {k:/privacy|data|store my/i,a:'This chat isn\'t stored by the website. Your KYN Passport data belongs to you and is shared only with your consent.',f:[]},
+ {k:/who are you|are you (a )?(real|human|nurse)/i,a:'I\'m Nurse Doris, an AI virtual assistant for KYN Family Pharmacy. I\'m not a real nurse, so I give general information only and point you to our pharmacists for anything personal.',f:[]}];
+const local=q=>{for(const it of KB)if(it.k.test(q)){if(it.a==='tip'){const t=TIPS[thisIdx];return{a:`This week's tip: ${t[1]}. ${t[2]} ${t[3]}`,f:['Next tip']}}return it}
+  return{a:'I\'m not sure about that one. I can help with prescriptions, delivery, the KYN Passport, blood pressure, sugar, diet, exercise, sleep, stress and medicine safety. For anything personal, our pharmacist is on 230-0322.',f:['How do I send a prescription?','Give me a healthy eating tip','Talk to a person']}};
+const SYS=`You are "Nurse Doris", the warm, articulate virtual assistant of KYN Family Pharmacy (www.kynpharmacy.com), a family-oriented pharmacy in Barbados serving local and international customers. Motto: "Know Your Numbers. Own Your Health." You are an AI, not a real nurse; say so if asked.
+Facts: phone and WhatsApp 230-0322 (+1 246 230 0322); email ${EMAIL}; prescriptions are sent as a photo by WhatsApp or email; islandwide delivery is $15 BBD for KYN Passport holders and $20 BBD for everyone else; pickup is free; the KYN Health Passport ($94.20 BBD a year for members and non-members alike) tracks blood pressure, glucose, HbA1c, cholesterol, BMI, waist and medicines, with refill reminders and a family view; customers can opt in to WhatsApp and email alerts and a weekly health tip. Don't invent opening hours, medicine prices, services or staff names: refer to 230-0322.
+Style: plain, kind, confident English; short paragraphs; under 110 words; end with one helpful next step. Use metric units and give US units in brackets where useful.
+Safety: give general, evidence-based information (WHO and national guidance). Never diagnose, never give personal doses, never advise stopping or changing a prescribed medicine; refer to the pharmacist. For emergency symptoms, tell them to call 511 or their local emergency number immediately. If someone mentions self-harm, respond with care and urge them to contact emergency services or a trusted person now. Never ask for bank or card details.`;
+let sample=null;
+const use=async n=>{try{return (typeof claude!=='undefined'&&claude.use)?await claude.use(n):null}catch(e){return null}};
+(async()=>{sample=await use('sample');if(sample)$('#dorisMode').textContent='AI virtual assistant · general information only'})();
+(async()=>{tts=await use('tts')})();
+const chips=list=>{$('#chips').innerHTML=list.map(c=>`<button type="button">${esc(c)}</button>`).join('')};
+let busy=false;
+const ask=async q=>{if(busy)return;busy=true;add('u',q);hist.push({role:'user',content:q});
+  const loc=local(q);const urgent=/emergenc|chest pain|stroke|breathe|overdose|suicid|self.?harm|kill myself|end my life/i.test(q);
+  const el=add('d','');el.innerHTML='<span class="typing" aria-label="Nurse Doris is typing"><i></i><i></i><i></i></span>';
+  let ans='';
+  if(q==='Next tip'){showTip(tipIdx+1);const t=TIPS[tipIdx];ans=`${t[1]}. ${t[2]} ${t[3]}`}
+  else if(sample&&!urgent){try{const conv=[{role:'user',content:SYS+'\n\nReply as Nurse Doris to the conversation that follows.'},{role:'assistant',content:'Understood. I am Nurse Doris.'},...hist.slice(-10)];
+      const r=await sample(conv,{modelTier:'quick',cache:false,onText:({text})=>{el.textContent=text;msgs.scrollTop=msgs.scrollHeight}});ans=r.text}
+    catch(e){if(e&&e.code==='not_granted')sample=null;ans=loc.a}}
+  else{await new Promise(r=>setTimeout(r,500));ans=loc.a}
+  el.textContent=ans;hist.push({role:'assistant',content:ans});msgs.scrollTop=msgs.scrollHeight;chips(loc.f&&loc.f.length?loc.f:['What does delivery cost?','This week\'s health tip','Talk to a person']);
+  autoSpeak(ans);busy=false};
+add('d',"Good day! I'm Nurse Doris, KYN Family Pharmacy's virtual assistant. I can explain our prescription and delivery service and the KYN Health Passport, and share everyday tips on diet, exercise, sleep and medicine safety. How can I help?");
+chips(['How do I send a prescription?','What does delivery cost?','What is the KYN Passport?','What is a healthy blood pressure?','Give me a healthy eating tip']);
+$('#chips').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.textContent==='Talk to a person')return route('#human');if(b.textContent==='Check my numbers')return route('#kyn');ask(b.textContent)});
+$('#ask').addEventListener('submit',e=>{e.preventDefault();const q=$('#q').value.trim();if(!q)return;$('#q').value='';ask(q)});
+const TOP=['How do I send a prescription?','Can I transfer a prescription?','What does delivery cost?','What is the KYN Passport?','How much is the KYN Passport?','What are the Passport benefits?','What is a healthy blood pressure?','How can I cut down on salt?','What does my blood sugar number mean?','Give me a healthy eating tip','How much exercise do I need?','How can I sleep better?','Managing stress','Quitting smoking','How should I store medicines?','This week\'s health tip'];
+$('#dTopic').innerHTML+=TOP.map(t=>`<option>${esc(t)}</option>`).join('');
+$('#dTopic').addEventListener('change',e=>{if(e.target.value){ask(e.target.value);e.target.value='';$('#q').focus()}});
+new IntersectionObserver(es=>es.forEach(x=>$('#fab').classList.toggle('hide',x.isIntersecting)),{threshold:.15}).observe($('#doris'));
+$('#fab').addEventListener('click',()=>{$('#doris').scrollIntoView();$('#q').focus({preventScroll:true})});
+
+/* Voice input: Claude dictation where offered, else the browser's speech recognition */
+let dict=null,rec=null,listening=false;const mic=$('#mic');
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+const setMic=on=>{listening=on;mic.setAttribute('aria-pressed',on);mic.setAttribute('aria-label',on?'Stop listening':'Speak your question')};
+if(SR)mic.hidden=false;
+(async()=>{dict=await use('dictation');if(dict){mic.hidden=false;
+  dict.onPartial(({text})=>{$('#q').value=text});dict.onFinal(({text})=>{$('#q').value=text});
+  dict.onState(({state})=>{setMic(state==='listening');if(state==='idle'&&$('#q').value.trim()){const q=$('#q').value.trim();$('#q').value='';ask(q)}})}})();
+mic.addEventListener('click',()=>{stopSpeak();
+  if(dict){if(listening){dict.stop().catch(()=>{})}else{dict.start().catch(e=>{setMic(false);if(e&&e.code==='not_granted'){mic.hidden=true;toast('Microphone not allowed. You can keep typing.')}})}return}
+  if(!SR)return;if(listening){try{rec.stop()}catch(e){}return}
+  try{rec=new SR();rec.lang='en';rec.interimResults=true;
+    rec.onresult=ev=>{const t=[...ev.results].map(r=>r[0].transcript).join('');$('#q').value=t;if(ev.results[ev.results.length-1].isFinal){$('#q').value='';ask(t)}};
+    rec.onend=()=>setMic(false);rec.onerror=()=>{setMic(false);toast('Voice input is not available here. You can keep typing.')};rec.start();setMic(true)}
+  catch(e){setMic(false);toast('Voice input is not available here. You can keep typing.')}});
+
+/* ---------- Opt-in ---------- */
+$('#optin').addEventListener('click',e=>{const b=e.target.closest('button[data-via]');if(!b)return;e.preventDefault();
+  const topics=$$('#optin fieldset input:checked').map(i=>i.value);const n=$('#oName').value.trim(),ph=$('#oPhone').value.trim(),m=$('#oMail').value.trim();
+  if(!n){toast('Please add your name.');$('#oName').focus();return}if(!topics.length){toast('Pick at least one type of alert.');return}
+  if(b.dataset.via==='mail'&&!m){toast('Add your email address first.');$('#oMail').focus();return}
+  if(!$('#consent').checked){toast('Please tick the consent box to opt in.');$('#consent').focus();return}
+  go(b.dataset.via,'Alerts opt-in: '+n,`Hello KYN Family Pharmacy,\nI consent to receive these alerts: ${topics.join(', ')}.\nFrequency: ${$('#oFreq').value}\nName: ${n}\nWhatsApp: ${ph||'n/a'}\nEmail: ${m||'n/a'}\nI understand I can opt out any time by replying STOP.`)});
+
+/* Stats bars */
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.style.width=x.target.dataset.w+'%';io.unobserve(x.target)}}),{threshold:.3});
+$$('.bar i').forEach(b=>io.observe(b));
+}
+</script>
+</body>
+</html>
